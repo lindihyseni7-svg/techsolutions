@@ -1,0 +1,38 @@
+# Runtime / local files
+*.log
+*.tmp
+*.cache
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE/editor
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Node build dependencies from the admin template
+node_modules/
+admin/node_modules/
+
+# Build/export archives
+*.zip
+*.rar
+*.7z
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Sass cache / generated maps if created locally
+.sass-cache/
+*.css.map
+*.js.map
+
+# Keep uploaded/runtime files out if upload folders are added later
+uploads/*
+admin/uploads/*
+!uploads/.gitkeep
+!admin/uploads/.gitkeep
