@@ -2,6 +2,8 @@
 
 Tech Solutions is a PHP/MySQL web application for employee and operations management. It includes a modern public landing page with a video hero and a protected admin dashboard for managing employees, departments and registration records.
 
+For portfolio deployment, the public landing page now runs in frontend-only mode by default. That means it can be uploaded to PHP hosting without creating a database. The admin/MySQL backend is optional and only activates when `TECHSOLUTIONS_ENABLE_BACKEND=1` is set on a server that has the database configured.
+
 ## Features
 
 - Modern responsive landing page.
@@ -103,6 +105,43 @@ git push -u origin main
 
 Replace `USERNAME/REPOSITORY` with your GitHub repository path.
 
-## Deployment Note
+## Frontend-Only Deploy
 
-This is a traditional PHP + MySQL project. It is best deployed on PHP/MySQL hosting or a VPS with Apache/Nginx, PHP and MySQL. Static hosting platforms do not run the PHP backend directly.
+For portfolio/demo hosting without database:
+
+1. Upload these to the public hosting folder, for example `htdocs`:
+
+   ```text
+   index.php
+   style1.css
+   deploy-check.php
+   admin/images/
+   ```
+
+2. Open:
+
+   ```text
+   /deploy-check.php
+   ```
+
+3. If it says `Status: ready`, open the website.
+
+In frontend-only mode:
+
+- The landing page works.
+- The video hero and images work if `admin/images` is uploaded.
+- The contact form shows a demo success message and does not require MySQL.
+- Admin login/dashboard is hidden from the public landing page.
+
+## Full PHP/MySQL Deploy
+
+If the admin backend is needed, deploy on PHP/MySQL hosting or a VPS with Apache/Nginx, PHP and MySQL.
+
+Required:
+
+- MySQL database named `techsolutions`.
+- Correct credentials in `admin/lib/Database.php`.
+- Environment variable `TECHSOLUTIONS_ENABLE_BACKEND=1`.
+- Full `admin/` folder uploaded.
+
+Static hosting platforms do not run the PHP backend directly.

@@ -1,16 +1,18 @@
 <?php
-include 'autoloader1.php';
-include 'admin/lib/Kontakti.php';
-
-use Admin\Lib\Kontakti;
-use Admin\Lib\Session;
-
-$session = new Session();
-$isLoggedIn = $session->isSignedIn();
+$backendEnabled = getenv('TECHSOLUTIONS_ENABLE_BACKEND') === '1';
+$isLoggedIn = false;
 $contactMessage = '';
 
-if (isset($_POST['save'])) {
-    $kontakt = new Kontakti();
+if ($backendEnabled) {
+    include 'autoloader1.php';
+    include 'admin/lib/Kontakti.php';
+
+    $session = new Admin\Lib\Session();
+    $isLoggedIn = $session->isSignedIn();
+}
+
+if (isset($_POST['save']) && $backendEnabled) {
+    $kontakt = new Admin\Lib\Kontakti();
     $kontakt->setEmri(trim($_POST['emri'] ?? ''));
     $kontakt->setMbiemri(trim($_POST['mbiemri'] ?? ''));
     $kontakt->setEmail(trim($_POST['email'] ?? ''));
@@ -22,6 +24,8 @@ if (isset($_POST['save'])) {
     ob_end_clean();
 
     $contactMessage = 'Thank you! Your request was sent successfully.';
+} elseif (isset($_POST['save'])) {
+    $contactMessage = 'Thanks! This portfolio demo is running without a database. Please contact us by email or phone.';
 }
 ?>
 <!DOCTYPE html>
@@ -57,11 +61,13 @@ if (isset($_POST['save'])) {
                 <li class="nav-item"><a class="nav-link" href="#workflow">Workflow</a></li>
                 <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
                 <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                <?php if ($isLoggedIn): ?>
-                    <li class="nav-item"><a class="nav-link" href="admin/index.php">Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link" href="admin/logout.php">Logout</a></li>
-                <?php else: ?>
-                    <li class="nav-item"><a class="nav-link" href="admin/login.php">Login</a></li>
+                <?php if ($backendEnabled): ?>
+                    <?php if ($isLoggedIn): ?>
+                        <li class="nav-item"><a class="nav-link" href="admin/index.php">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" href="admin/logout.php">Logout</a></li>
+                    <?php else: ?>
+                        <li class="nav-item"><a class="nav-link" href="admin/login.php">Login</a></li>
+                    <?php endif; ?>
                 <?php endif; ?>
                 <li class="nav-item ml-lg-3"><a class="btn btn-nav" href="#contact">Request demo</a></li>
             </ul>
@@ -341,7 +347,7 @@ if (isset($_POST['save'])) {
                 <div class="contact-copy">
                     <span class="eyebrow">Contact</span>
                     <h2>Tell us what your team needs.</h2>
-                    <p>Send a request and it will be saved in the existing database contact table.</p>
+                    <p>Send a request for this portfolio demo or contact the team directly by email or phone.</p>
                     <div class="contact-info">
                         <span><i class="fa-solid fa-location-dot"></i> Wellington Road, Street 32</span>
                         <span><i class="fa-solid fa-phone"></i> +1 234 567 890</span>
@@ -405,11 +411,15 @@ if (isset($_POST['save'])) {
             </div>
             <div class="col-lg-2 col-md-4 mb-4">
                 <h4>Account</h4>
-                <?php if ($isLoggedIn): ?>
-                    <a href="admin/index.php">Dashboard</a>
-                    <a href="admin/logout.php">Logout</a>
+                <?php if ($backendEnabled): ?>
+                    <?php if ($isLoggedIn): ?>
+                        <a href="admin/index.php">Dashboard</a>
+                        <a href="admin/logout.php">Logout</a>
+                    <?php else: ?>
+                        <a href="admin/login.php">Login</a>
+                    <?php endif; ?>
                 <?php else: ?>
-                    <a href="admin/login.php">Login</a>
+                    <a href="#contact">Request demo</a>
                 <?php endif; ?>
             </div>
             <div class="col-lg-3 col-md-4 mb-4">
