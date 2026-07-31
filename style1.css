@@ -937,6 +937,31 @@ label {
     border-radius: 14px;
 }
 
+.developer-credit {
+    margin: 0 0 14px;
+}
+
+.developer-credit strong {
+    color: #fff;
+}
+
+.developer-links {
+    display: grid;
+    gap: 10px;
+}
+
+.developer-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin: 0;
+}
+
+.developer-links i {
+    width: 18px;
+    color: var(--accent);
+}
+
 .reveal {
     opacity: 1;
     transform: translateY(0);

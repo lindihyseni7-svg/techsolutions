@@ -423,12 +423,12 @@ if (isset($_POST['save']) && $backendEnabled) {
                 <?php endif; ?>
             </div>
             <div class="col-lg-3 col-md-4 mb-4">
-                <h4>Social</h4>
-                <div class="socials">
-                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <h4>Developer</h4>
+                <p class="developer-credit">Developed by <strong>Arlind Hyseni</strong></p>
+                <div class="developer-links">
+                    <a href="https://www.arlindhyseni.online" target="_blank" rel="noopener"><i class="fa-solid fa-globe"></i> arlindhyseni.online</a>
+                    <a href="https://github.com/lindihyseni7-svg" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
+                    <a href="mailto:lindihyseni7@gmail.com"><i class="fa-solid fa-envelope"></i> lindihyseni7@gmail.com</a>
                 </div>
             </div>
         </div>
